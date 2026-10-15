@@ -1,0 +1,8 @@
+fn name_of(m):
+  switch: m
+    case 0:
+      return: "Rock"
+    case 1:
+      return: "Paper"
+    default:
+      return: "Scissors"

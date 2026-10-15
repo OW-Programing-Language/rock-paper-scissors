@@ -1,0 +1,32 @@
+import "moves.ow"
+
+class Game:
+  field you
+  field cpu
+  field result
+
+  fn new():
+    call: this.reset()
+
+  fn reset():
+    set this.you: 0
+    set this.cpu: 0
+    set this.result: "Make your move!"
+
+  fn play(choice):
+    set c int: rand(3)
+    set d int: mod(choice - c + 3, 3)
+    set head string: "You: " + name_of(choice) + "   CPU: " + name_of(c) + "  —  "
+    switch: d
+      case 0:
+        set this.result: head + "Tie!"
+      case 1:
+        set this.result: head + "You win!"
+        set this.you: this.you + 1
+      default:
+        set this.result: head + "You lose"
+        set this.cpu: this.cpu + 1
+    return: 0
+
+  fn view():
+    return: ui_col([ui_heading("Rock Paper Scissors"), ui_text(this.result), ui_text("You " + this.you + "  —  " + this.cpu + " CPU"), ui_row([ui_button("Rock", "game.play", 0), ui_button("Paper", "game.play", 1), ui_button("Scissors", "game.play", 2)]), ui_button("Reset", "game.reset")])
